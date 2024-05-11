@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   mockapi:
     build: ../../server
@@ -11,3 +9,16 @@ services:
       interval: 5s
       timeout: 5s
       retries: 300
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:sqlite:/db/players.db
+      - SPRING_LOG_LEVEL=debug
+    volumes:
+      - db_data:/db
+  sqlite:
+    image: keinos/sqlite3:latest
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - db_data:/data
+
+volumes:
+  db_data:

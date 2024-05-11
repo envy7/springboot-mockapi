@@ -20,10 +20,16 @@ project.sourceSets {
 		java {
 			srcDirs = ['server/src/main/java']
 		}
+		resources {
+			srcDirs = ['server/src/main/resources']
+		}
 	}
 	test {
 		java {
 			srcDirs = ['server/src/test/java']
+		}
+		resources {
+			srcDirs = ['server/src/test/resources']
 		}
 	}
 }

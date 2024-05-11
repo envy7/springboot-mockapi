@@ -3,13 +3,14 @@ package com.example.mockapi.controller;
 import com.example.mockapi.model.PlayerData;
 import com.example.mockapi.service.PlayerDataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,8 +21,8 @@ public class PlayerController {
     private PlayerDataService playerDataService;
 
     @GetMapping("/players")
-    public ResponseEntity<List<PlayerData>> getAllData() {
-        return ResponseEntity.ok(playerDataService.getAllData());
+    public ResponseEntity<Page<PlayerData>> getAllData(Pageable pageable) {
+        return ResponseEntity.ok(playerDataService.getAllData(pageable));
     }
 
     @GetMapping("/players/{playerId}")
