@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/python3
 
 import csv
 import sqlite3
@@ -7,16 +7,14 @@ import sqlite3
 DATABASE_FILE = 'players.db'
 CSV_FILE = 'Player.csv'
 
-import csv
-import sqlite3
-
 # Initialize counters
 total_rows = 0
 inserted_rows = 0
 failed_rows = 0
 
+
 def insert_player_data(row):
-  """Inserts a single player data row into the database.
+    """Inserts a single player data row into the database.
 
   Args:
       row (list): A list containing player data.
@@ -24,12 +22,13 @@ def insert_player_data(row):
   Returns:
       bool: True if insertion is successful, False otherwise.
   """
-  try:
-    cursor.execute(insert_query, row)
-    return True
-  except sqlite3.Error as e:
-    print(f"Error inserting row: {e}")
-    return False
+    try:
+        cursor.execute(insert_query, row)
+        return True
+    except sqlite3.Error as e:
+        print(f"Error inserting row: {e}")
+        return False
+
 
 # Connect to the database
 conn = sqlite3.connect(DATABASE_FILE)
@@ -69,19 +68,19 @@ insert_query = '''INSERT INTO player_data (player_id, birth_year, birth_month, b
 
 # Open CSV file
 with open(CSV_FILE, newline='', encoding='utf-8') as csvfile:
-  reader = csv.reader(csvfile, delimiter=',')
-  next(reader)  # Skip header row (if present)
+    reader = csv.reader(csvfile, delimiter=',')
+    next(reader)  # Skip header row (if present)
 
-  # Process each row
-  for row in reader:
-    # Replace empty strings with None
-    row = [x if x else None for x in row]
+    # Process each row
+    for row in reader:
+        # Replace empty strings with None
+        row = [x if x else None for x in row]
 
-    # Insert data and track success/failure
-    if insert_player_data(row):
-      inserted_rows += 1
-    else:
-      failed_rows += 1
+        # Insert data and track success/failure
+        if insert_player_data(row):
+            inserted_rows += 1
+        else:
+            failed_rows += 1
 
 # Commit changes and close connection
 conn.commit()

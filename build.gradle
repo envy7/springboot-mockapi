@@ -11,29 +11,6 @@ java {
 	sourceCompatibility = '17'
 }
 
-allprojects {
-	buildDir = "server/build/"
-}
-
-project.sourceSets {
-	main {
-		java {
-			srcDirs = ['server/src/main/java']
-		}
-		resources {
-			srcDirs = ['server/src/main/resources']
-		}
-	}
-	test {
-		java {
-			srcDirs = ['server/src/test/java']
-		}
-		resources {
-			srcDirs = ['server/src/test/resources']
-		}
-	}
-}
-
 repositories {
 	mavenCentral()
 }
