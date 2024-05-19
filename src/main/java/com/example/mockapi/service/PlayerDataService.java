@@ -1,6 +1,6 @@
 package com.example.mockapi.service;
 
-import com.example.mockapi.model.PlayerData;
+import com.example.mockapi.model.player.PlayerData;
 import com.example.mockapi.repository.PlayerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

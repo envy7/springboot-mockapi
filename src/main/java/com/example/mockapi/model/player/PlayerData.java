@@ -1,4 +1,4 @@
-package com.example.mockapi.model;
+package com.example.mockapi.model.player;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

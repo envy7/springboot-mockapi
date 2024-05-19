@@ -1,6 +1,6 @@
 package com.example.mockapi.controller;
 
-import com.example.mockapi.model.PlayerData;
+import com.example.mockapi.model.player.PlayerData;
 import com.example.mockapi.service.PlayerDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
