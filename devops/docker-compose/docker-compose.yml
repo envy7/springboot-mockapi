@@ -10,15 +10,20 @@ services:
       timeout: 5s
       retries: 300
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:sqlite:/db/players.db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/mockapi
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_LOG_LEVEL=debug
+  db:
+    image: postgres:16.3-alpine
+    environment:
+      - POSTGRES_DB=mockapi
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    ports:
+      - "5432:5432"
     volumes:
-      - db_data:/db
-  sqlite:
-    image: keinos/sqlite3:latest
-    command: ["tail", "-f", "/dev/null"]
-    volumes:
-      - db_data:/data
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  db_data:
+  postgres_data: {}

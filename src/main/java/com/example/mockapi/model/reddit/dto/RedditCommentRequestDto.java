@@ -3,5 +3,5 @@ package com.example.mockapi.model.reddit.dto;
 import lombok.Data;
 
 @Data
-public class CreateRedditCommentRequestDto {
+public class RedditCommentRequestDto {
 }

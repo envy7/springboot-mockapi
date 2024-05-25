@@ -1,7 +1,9 @@
 package com.example.mockapi.service;
 
-import com.example.mockapi.model.reddit.dto.CreateRedditUserRequestDto;
-import com.example.mockapi.model.reddit.dto.CreateRedditUserResponseDto;
+import com.example.mockapi.model.reddit.dto.RedditPostRequestDto;
+import com.example.mockapi.model.reddit.dto.RedditPostResponseDto;
+import com.example.mockapi.model.reddit.dto.RedditUserRequestDto;
+import com.example.mockapi.model.reddit.dto.RedditUserResponseDto;
 import com.example.mockapi.model.reddit.entity.RedditPostEntity;
 import com.example.mockapi.model.reddit.entity.RedditUserEntity;
 import com.example.mockapi.repository.RedditCommentRepository;
@@ -29,21 +31,21 @@ public class RedditService {
     @Autowired
     private RedditCommentRepository redditCommentRepository;
 
-    public Optional<CreateRedditUserResponseDto> createUser(CreateRedditUserRequestDto createRedditUserRequestDto) {
-        if (redditUserRepository.findByUsername(createRedditUserRequestDto.getUsername()) != null) {
+    public Optional<RedditUserResponseDto> createUser(RedditUserRequestDto redditUserRequestDto) {
+        if (redditUserRepository.findByUsername(redditUserRequestDto.getUsername()) != null) {
             return Optional.empty();  // Handle username already exists
         }
-        RedditUserEntity redditUserEntity = modelMapper.map(createRedditUserRequestDto, RedditUserEntity.class);
-        return Optional.of(modelMapper.map(redditUserRepository.save(redditUserEntity), CreateRedditUserResponseDto.class));
+        RedditUserEntity redditUserEntity = modelMapper.map(redditUserRequestDto, RedditUserEntity.class);
+        return Optional.of(modelMapper.map(redditUserRepository.save(redditUserEntity), RedditUserResponseDto.class));
     }
 
-//    public Optional<RedditPostEntity> createPost(RedditPostEntity post, Long userId) {
-//        RedditUserEntity user = redditUserRepository.getReferenceById(userId);
-//        if (user == null) {
-//            return Optional.empty();
-//        }
-//        post.setUser(user);
-//        return Optional.of(redditPostRepository.save(post));
-//    }
-
+    public Optional<RedditPostResponseDto> createPost(RedditPostRequestDto redditPostRequestDto, Long userId) {
+        RedditUserEntity user = redditUserRepository.findById(userId);
+        if (user == null) {
+            return Optional.empty();
+        }
+        RedditPostEntity redditPostEntity = modelMapper.map(redditPostRequestDto, RedditPostEntity.class);
+        redditPostEntity.setUser(user);
+        return Optional.of(modelMapper.map(redditPostRepository.save(redditPostEntity), RedditPostResponseDto.class));
+    }
 }
