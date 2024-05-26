@@ -1,5 +1,6 @@
 package com.example.mockapi.service;
 
+import com.example.mockapi.model.player.PlayerData;
 import com.example.mockapi.model.reddit.dto.RedditPostRequestDto;
 import com.example.mockapi.model.reddit.dto.RedditPostResponseDto;
 import com.example.mockapi.model.reddit.dto.RedditUserRequestDto;
@@ -13,6 +14,8 @@ import com.example.mockapi.service.mapper.RedditPostMapper;
 import com.example.mockapi.service.mapper.RedditUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -37,6 +40,10 @@ public class RedditService {
         }
         RedditUserEntity redditUserEntity = redditUserMapper.toEntity(redditUserRequestDto);
         return Optional.of(redditUserMapper.toDto(redditUserRepository.save(redditUserEntity)));
+    }
+
+    public Page<RedditUserResponseDto> getAllData(Pageable pageable) {
+        return redditUserRepository.findAll(pageable).map(redditUserEntity -> redditUserMapper.toDto(redditUserEntity));
     }
 
     public Optional<RedditPostResponseDto> createPost(RedditPostRequestDto redditPostRequestDto, Long userId) {
