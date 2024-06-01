@@ -35,13 +35,19 @@ public class RedditController {
 
     // Get all users
     @GetMapping("/users")
-    public ResponseEntity<Page<RedditUserResponseDto>> getAllData(Pageable pageable) {
+    public ResponseEntity<Page<RedditUserResponseDto>> getAllUsers(Pageable pageable) {
         log.debug("Getting list of all users");
-        return ResponseEntity.ok(redditService.getAllData(pageable));
+        return ResponseEntity.ok(redditService.getAllUsers(pageable));
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<RedditUserResponseDto> getUser(@PathVariable Long userId) {
+        log.debug("Getting user with id: {}", userId);
+        return ResponseEntity.ok(redditService.getUser(userId));
     }
 
     // Create Post API
-    @PostMapping("/posts/{userId}")
+    @PostMapping("/users/{userId}/posts")
     public ResponseEntity<Object> createPost(@RequestBody RedditPostRequestDto post, @PathVariable Long userId) {
         log.debug("Create post api called for userId: {}", userId);
         Optional<RedditPostResponseDto> userPost = redditService.createPost(post, userId);

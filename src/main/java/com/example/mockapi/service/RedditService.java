@@ -42,7 +42,11 @@ public class RedditService {
         return Optional.of(redditUserMapper.toDto(redditUserRepository.save(redditUserEntity)));
     }
 
-    public Page<RedditUserResponseDto> getAllData(Pageable pageable) {
+    public RedditUserResponseDto getUser(Long userId) {
+        return redditUserMapper.toDto(redditUserRepository.findById(userId));
+    }
+
+    public Page<RedditUserResponseDto> getAllUsers(Pageable pageable) {
         return redditUserRepository.findAll(pageable).map(redditUserEntity -> redditUserMapper.toDto(redditUserEntity));
     }
 

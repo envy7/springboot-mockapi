@@ -32,10 +32,8 @@ public class RedditControllerTest {
     private RedditController redditController;
     @MockBean
     private RedditService redditService;
-
     @MockBean
     private RedditUserRepository redditUserRepository;
-
     @MockBean
     private RedditUserMapper redditUserMapper;
 
@@ -72,8 +70,8 @@ public class RedditControllerTest {
         redditUsers.add(new RedditUserResponseDto(1L, "user1"));
         redditUsers.add(new RedditUserResponseDto(2L, "user2"));
 
-        Mockito.when(redditService.getAllData(pageable)).thenReturn(new PageImpl<>(redditUsers, pageable, 10));
-        ResponseEntity<Page<RedditUserResponseDto>> response = redditController.getAllData(pageable);
+        Mockito.when(redditService.getAllUsers(pageable)).thenReturn(new PageImpl<>(redditUsers, pageable, 10));
+        ResponseEntity<Page<RedditUserResponseDto>> response = redditController.getAllUsers(pageable);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
